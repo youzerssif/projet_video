@@ -34,7 +34,7 @@ def login(request):
 
 def register(request):
     return render(request, 'pages/register.html')
-    
+
 def loginUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
     username=postdata['username']
@@ -117,9 +117,7 @@ def registerUser(request):
         'success':False,
         'message':'Tous Les champs sont requis *',
     }
-    # return JsonResponse(data, safe=False)
-
-    return render(request, 'pages/register.html',data)
+    return JsonResponse(data, safe=False)
 
 
 def cat(request, id_cat):

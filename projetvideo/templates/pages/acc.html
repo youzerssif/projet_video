@@ -9,17 +9,11 @@
                 </div>
             </div>
             <div class="row pt-5 justify-content-center align-items-center">
-                <div class="col-3">
-                <img alt="image" class="img-fluid" src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/Mobile_application_mr4r.svg" style=" height: 200px;">
-                <h2>Categorie 1</h2>
-                </div>
-                <div class="col-3 offset-1">
-                <img alt="image" class="img-fluid" src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/healthy_options_sdo3.svg" style=" height: 200px;">
-                <h2>Categorie 2</h2>
-                </div>
-                <div class="col-3 offset-1">
-                <img alt="image" class="img-fluid" src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/healthy_lifestyle_6tyl.svg" style=" height: 200px;">
-                <h2><a>Categorie 3</a></h2>
+                <div v-for="cat in categorys" class="col-3">
+                <a>
+                    <img alt="image" class="img-fluid" src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/Mobile_application_mr4r.svg" style=" height: 200px;">
+                </a>
+                <h2>${  }</h2>
                 </div>
             </div>
     </div>
