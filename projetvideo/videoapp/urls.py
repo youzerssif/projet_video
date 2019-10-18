@@ -13,7 +13,8 @@ router.register('User', UserViewSet, base_name='user')
 
 urlpatterns = [
     path("VideosListe/", VideosListe.as_view(), name="videos_liste"),
-    path("", acc, name="acc"),
+    path("Videos/<int:pk>/", VideoDetail.as_view(), name="video_detail"),
+    # path("", acc, name="acc"),
     path("connexion/", login, name="login"),
     path("inscription", register, name="register"),
     path("category/<int:id_cat>/", cat, name="cat"),
