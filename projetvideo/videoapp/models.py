@@ -7,6 +7,7 @@ class Module(models.Model):
 
     titre = models.CharField(max_length=150)
     jeton = models.PositiveIntegerField()
+    image = models.ImageField( upload_to='images/module/', blank=True, null=True)
     prix = models.FloatField()
     status = models.BooleanField()
     date_add = models.DateTimeField(auto_now=False, auto_now_add=False)

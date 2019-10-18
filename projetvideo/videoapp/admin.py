@@ -55,6 +55,8 @@ class VideoAdmin(admin.ModelAdmin):
     )
     list_filter = ('status', 'date_add', 'date_update')
     raw_id_fields = ('categorie',)
+    
+    
 
     def video_view(self, obj):
         return mark_safe('<video controls width="250"> <source src="{url}" type="video/mp4"> lecteur </video>'.format(url=obj.video.url))
