@@ -28,10 +28,13 @@ def deconnexion(request):
 
 def acc(request):
     return render(request, 'pages/acc.html')
+
 def login(request):
     return render(request, 'pages/login.html')
+
 def register(request):
     return render(request, 'pages/register.html')
+    
 def loginUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
     username=postdata['username']
