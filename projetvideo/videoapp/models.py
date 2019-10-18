@@ -70,6 +70,7 @@ class User_module(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modules')
     module = models.ForeignKey('Module', on_delete=models.CASCADE, related_name='users')
     jeton = models.PositiveIntegerField()
+    apikey = models.CharField(max_length=225,null=True)
     jeton_restant = models.PositiveIntegerField()
     status = models.BooleanField()
     date_add = models.DateTimeField(auto_now=False, auto_now_add=False)
