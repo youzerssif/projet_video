@@ -50,6 +50,8 @@ class VideoAdmin(admin.ModelAdmin):
     )
     list_filter = ('status', 'date_add', 'date_update')
     raw_id_fields = ('categorie',)
+    
+    
 
 
 class User_moduleAdmin(admin.ModelAdmin):
