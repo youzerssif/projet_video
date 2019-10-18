@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'videoapp.apps.VideoappConfig',
+    'editor.apps.EditorConfig',
     'rest_framework',  
     'django_seed',
     'django_admin_generator',
