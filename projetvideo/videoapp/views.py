@@ -2,13 +2,13 @@ import json
 import random
 import string
 from string import digits
-from django.shortcuts import render, redirect
+from urllib import request
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.core.validators import validate_email
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .models import *
 
@@ -18,7 +18,21 @@ def home(request):
 
     data={}
     return render(request, 'home.html',data)
-def Login(request):
+
+
+def deconnexion(request):
+    logout(request)
+    return redirect('mylogin')
+    return render(request, 'pages/home.html',data)
+
+
+def acc(request):
+    return render(request, 'pages/acc.html')
+def login(request):
+    return render(request, 'pages/login.html')
+def register(request):
+    return render(request, 'pages/register.html')
+def loginUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
     username=postdata['username']
     password=postdata['pass']
@@ -29,13 +43,13 @@ def Login(request):
         if next: 
             return redirect(next)
         else:
-            return redirect('homespe') # page si connect
+            return redirect('acc') # page si connect
     else:
         return render(request, 'pages/login.html')
 
-def  register(request):
+
+def registerUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
-        
     # name = request.POST['name']
     isSuccess=False
     compt=1
@@ -100,7 +114,13 @@ def  register(request):
         'success':False,
         'message':'Tous Les champs sont requis *',
     }
-    return JsonResponse(data, safe=False)
-def deconnexion(request):
-    logout(request)
-    return redirect('mylogin')
+    # return JsonResponse(data, safe=False)
+
+    return render(request, 'pages/register.html',data)
+
+
+def cat(request, id_cat):
+    return render(request, 'pages/videos.html')
+
+def video(request, id_video):
+    return render(request, 'vpages/video_lecteur.html')
