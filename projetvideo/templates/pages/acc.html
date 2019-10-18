@@ -70,3 +70,80 @@
 </div>
 </section>
 {% endblock %}
+
+
+{% block vue %}
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        loader: true,
+        content:false,
+        modules: [],
+        categorys:[],
+        id_list: [],
+    },
+    delimiters: ["${","}"],
+    mounted(){
+        this.get_menu()
+    },
+    methods: {
+        get_modules: function(){
+            var now = new Date();
+            axios.get('http://127.0.0.1:8000/Module/')
+                .then(response => {
+                    this.modules = response.data
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        get_menu: function(){
+            var now = new Date();
+            axios.get('http://127.0.0.1:8000/api/menu/?jour='+ weekday[now.getDay()])
+                .then(response => {
+
+                    this.loader=false
+                    this.content=true
+                    menu=response.data
+                    menu.forEach(me =>{
+                        if(me.jour == weekday[now.getDay()]){
+                            this.menu = me
+                        }
+                    })
+                    this.menu.plats.forEach(plat =>{
+                        this.id_list.push(plat.id)
+                    })
+                    this.get_categorys()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        get_categorys: function(){
+            var now = new Date();
+            axios.get('http://127.0.0.1:8000/api/categorie/')
+                .then(response => {
+                    this.loader=false
+                    this.content=true
+                    this.categorys = response.data
+                    this.actu_cat()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        actu_cat: function(){
+            this.categorys.forEach(category => {
+                for(var i=0; i<category.categorie_plat.length; i++){
+                    if(!this.id_list.includes(category.categorie_plat[i].id)){
+                        category.categorie_plat.splice(i, 1);
+                    }
+                }
+            });
+        }
+    }
+})
+</script>
+{% endblock vue %}
+    
