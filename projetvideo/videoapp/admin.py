@@ -3,6 +3,8 @@ from django.contrib import admin
 # Register your models here.
 # vim: set fileencoding=utf-8 :
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 
 from . import models
 
@@ -28,11 +30,14 @@ class CategorieAdmin(admin.ModelAdmin):
         'titre',
         'description',
         'status',
-        'image',
+        'image_view',
         'date_add',
         'date_update',
     )
     list_filter = ('status', 'date_add', 'date_update')
+    
+    def image_view(self, obj):
+        return mark_safe('<img src="{url}"  width="100px" heigth="50px" /> '.format(url=obj.image.url))
 
 
 class VideoAdmin(admin.ModelAdmin):
@@ -42,7 +47,7 @@ class VideoAdmin(admin.ModelAdmin):
         'categorie',
         'titre',
         'description',
-        'video',
+        'video_view',
         'image',
         'status',
         'date_add',
@@ -51,6 +56,8 @@ class VideoAdmin(admin.ModelAdmin):
     list_filter = ('status', 'date_add', 'date_update')
     raw_id_fields = ('categorie',)
 
+    def video_view(self, obj):
+        return mark_safe('<video controls width="250"> <source src="{url}" type="video/mp4"> lecteur </video>'.format(url=obj.video.url))
 
 class User_moduleAdmin(admin.ModelAdmin):
 
