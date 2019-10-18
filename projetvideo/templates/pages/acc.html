@@ -10,11 +10,11 @@
             </div>
             <div class="row pt-5 justify-content-center align-items-center">
                 <div v-for="cat in categorys" class="col-3">
-                <a>
-                    <img alt="image" class="img-fluid" src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/Mobile_application_mr4r.svg" style=" height: 200px;">
+                <a v-bind:href='"http://127.0.0.1:8000/category/" + cat.id'>
+                    <img alt="image" class="img-fluid" v-bind:src="cat.img" style=" height: 200px;">
                 </a>
-                <h2>${  }</h2>
-                </div>
+                <h2>${ cat.titre }</h2>
+                </div>  
             </div>
     </div>
 <div class="container">
