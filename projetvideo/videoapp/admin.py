@@ -59,6 +59,7 @@ class User_moduleAdmin(admin.ModelAdmin):
         'user',
         'module',
         'jeton',
+        'apikey',
         'jeton_restant',
         'status',
         'date_add',
