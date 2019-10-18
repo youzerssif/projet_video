@@ -89,12 +89,12 @@ def registerUser(request):
                     user.password = password
                     user.set_password(user.password)
                     user.save()
-                    myModule=Module.objects.filter(pk=1)
+                    myModule=Module.objects.filter(pk=module).get()
                     
                     print(myModule)
                     myJeton=10
-                    myApiKay=myTex=''.join(random.choice(string.ascii_uppercase+string.digits) for i in range(20))
-                    newUser=User_module(user=user,module=myModule,jeton=myJeton,jeton_restant=myJeton,apiKay=myApiKay,status=True)
+                    myApiKay=''.join(random.choice(string.ascii_uppercase+string.digits) for i in range(20))
+                    newUser=User_module(user=user,module=myModule,jeton=myJeton,jeton_restant=myJeton,apikey=myApiKay,status=True)
                     newUser.save()
                 
                     data={

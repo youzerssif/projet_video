@@ -1,5 +1,7 @@
-from django.db import models
+from email.policy import default
+
 from django.contrib.auth.models import User
+from django.db import models
 
 # Create your models here.
 
@@ -73,14 +75,12 @@ class User_module(models.Model):
     jeton = models.PositiveIntegerField()
     apikey = models.CharField(max_length=225,null=True)
     jeton_restant = models.PositiveIntegerField()
-    status = models.BooleanField()
-    date_add = models.DateTimeField(auto_now=False, auto_now_add=False)
-    date_update = models.DateTimeField(auto_now=False,)
+    status = models.BooleanField(default=True)
+    date_add = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True,)
 
     class Meta:
         """Meta definition for User_module."""
 
         verbose_name = 'User_module'
         verbose_name_plural = 'User_modules'
-
-
