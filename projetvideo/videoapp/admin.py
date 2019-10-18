@@ -14,6 +14,7 @@ class ModuleAdmin(admin.ModelAdmin):
         'titre',
         'jeton',
         'prix',
+        'image',
         'status',
         'date_add',
         'date_update',
