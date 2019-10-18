@@ -13,6 +13,7 @@ router.register('User', UserViewSet, base_name='user')
 
 urlpatterns = [
     path("VideosListe/", VideosListe.as_view(), name="videos_liste"),
+    path("Videos/<int:pk>/", VideoDetail.as_view(), name="video_detail")
 ]
 
 urlpatterns += router.urls
