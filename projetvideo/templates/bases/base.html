@@ -16,7 +16,8 @@
 
 
 
-<body id="app">
+<body>
+    <div id="app">
     <header class="bg-dark">
         <div class="container">
             <nav class="navbar navbar-expand-md">
@@ -79,16 +80,17 @@
             </div>
         </div>
     </footer>
+    </div>
     <script src="/static/js/video.js"></script>
     <script src="/static/js/youtube.video.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.css"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.js"></script>
     <script src="/static/vuejs/vue.js"></script>
     <script src="/static/vuejs/axios-min.js"></script>
     {% block vue %}
     {% endblock vue %}
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
     <script>
         $(document).ready(function() {
             $('#pour').select2();
