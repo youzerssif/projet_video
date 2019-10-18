@@ -5,7 +5,7 @@
     <section class="fdb-block" style="background-image: url(https://cdn.pixabay.com/photo/2017/07/31/11/44/laptop-2557572__480.jpg); height:100vh;">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="fdb-box form">
+                <div class="fdb-box form v-on:submit.prevent='onSubmit'">
                     <div class="col-12 col-md-8 col-lg-8 col-xl-6">
                     <div class="row">
                         <div class="col text-center">
@@ -15,32 +15,29 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col mt-4">
-                        <input type="text" name= "name" class="form-control" placeholder="Full name...">
+                        <input type="text" v-model="form.name" name= "name" class="form-control" placeholder="Full name...">
                         </div>
                     </div>
                     <div class="row align-items-center mt-4">
                         <div class="col">
-                        <input type="email" name= "email" class="form-control" placeholder="Email">
+                        <input type="email" v-model="form.email" name= "email" class="form-control" placeholder="Email">
                         </div>
                     </div>
 
                     <div class="row align-items-center mt-4">
                             <div class="col">
                                 <label for="pour">Modules</label>
-                            <select name="module" id="pour" class="js-example-basic-single" class="form-control">
-                                <option value=""></option>
-                                <option value="">Python</option>
-                                <option value="">Flutter</option>
-                                <option value="">Font-end</option>
+                            <select name="module" v-model="form.module" id="pour" class="js-example-basic-single" class="form-control">
+                                <option v-for="mod in modules" value="${ mod.id }">${ mod.titre }</option>
                             </select>
                             </div>
                     </div>
                     <div class="row align-items-center mt-4">
                         <div class="col">
-                        <input type="password" name="pass" class="form-control" placeholder="Password">
+                        <input type="password" v-model="form.pass" name="pass" class="form-control" placeholder="Password">
                         </div>
                         <div class="col">
-                        <input type="password" name="re_pass" class="form-control" placeholder="Confirm Password">
+                        <input type="password" v-model="form.re_pass" name="re_pass" class="form-control" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="row justify-content-start mt-4">
@@ -69,9 +66,14 @@
         data: {
             loader: true,
             content:false,
-            modules: [],
-            categorys:[],
-            id_list: [],
+            modules = [],
+            form = {
+                email = "",
+                name = "",
+                pass = "",
+                re_pass = "",
+                module = 0
+            }
         },
         delimiters: ["${","}"],
         mounted(){
@@ -79,28 +81,26 @@
         },
         methods: {
             methods: {
+                get_modules: function(){
+                    axios.get('http://127.0.0.1:8000/Module/')
+                        .then(response => {
+                            this.modules = response.data
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                },
                 // Pour faire le POST vers notre API
                 onSubmit(){
         
                     axios.defaults.xsrfCookieName = 'csrftoken'
                     axios.defaults.xsrfHeaderName = 'X-CSRFToken'
         
-                    const path = `http://127.0.0.1:8000/contact/contactapi/`
+                    const path = `http://127.0.0.1:8000/connexionUser`
                         
                     axios.post(path, this.form)
                     .then(response => { 
-                        // console.log(response) 
-                        this.form.fullname = response.data.fullname
-                        this.form.email = response.data.email
-                        this.form.message = response.data.message  
-                        
-                        swal("Merci!", "Votre préocupation sera prise en compte dans les plus bref délai!", "success");
-        
-                        this.form.fullname = ''
-                        this.form.email = ''
-                        this.form.message = ''
-        
-                    })
+                        console.log(response)
                     .catch(error => {
                         console.log(error.response)
                     });

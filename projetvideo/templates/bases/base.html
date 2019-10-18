@@ -82,6 +82,10 @@
     <script src="/static/js/youtube.video.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.js"></script>
+    <script src="/static/vuejs/vue.js"></script>
+    <script src="/static/vuejs/axios-min.js"></script>
+    {% block vue %}
+    {% endblock vue %}
     <script
     src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script>
@@ -89,8 +93,7 @@
             $('#pour').select2();
         });
     </script>
-    {% block vue %}
-    {% endblock vue %}
+    
         
 </body>
 </html>
