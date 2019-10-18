@@ -18,5 +18,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    #path('edit', editor.as_view(), name='editor')
+    path('editor', views.editor, name='editor'),
+    path('code', views.postCode, name='code')
 ]
