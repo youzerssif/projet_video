@@ -23,4 +23,4 @@ def cat(request, id_cat):
     return render(request, 'pages/videos.html')
 
 def video(request, id_video):
-    return render(request, 'vpages/ideo_lecteur.html')
+    return render(request, 'vpages/video_lecteur.html')
