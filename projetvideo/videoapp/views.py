@@ -23,7 +23,7 @@ def home(request):
 def deconnexion(request):
     logout(request)
     return redirect('mylogin')
-    return render(request, 'pages/home.html',data)
+    return render(request, 'pages/home.html')
 
 
 def acc(request):
