@@ -27,7 +27,7 @@
                     <div class="row align-items-center mt-4">
                             <div class="col">
                                 <label for="pour">Modules</label>
-                            <select name="module" v-model="form.module" id="pour" class="js-example-basic-single" class="form-control">
+                            <select name="module" v-model="form.module" class="form-control">
                                 <option v-if='!content'>valeur d'attente</option>
                                 <option v-if='content' v-for="mod in modules" v-bind:value="mod.id">${ mod.titre }</option>
                             </select>
@@ -100,8 +100,8 @@
                     const path = `http://127.0.0.1:8000/connexionUser`
                     console.log(this.form)
                     axios.post(path, this.form)
-                    .then(response => { 
-                        console.log(response) 
+                    .then(response => {
+                        console.log(response.data)
                     })
                     .catch(error => {
                         console.log(error.response)
