@@ -29,7 +29,7 @@ def deconnexion(request):
 def acc(request):
     return render(request, 'pages/acc.html')
 
-def login(request):
+def loginRoot(request):
     return render(request, 'pages/login.html')
 
 def register(request):
@@ -41,14 +41,20 @@ def loginUser(request):
     password=postdata['pass']
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
-        print("user is login")
+        print("###################user is login")   
         login(request, user)
-        if next: 
-            return redirect(next)
-        else:
-            return redirect('acc') # page si connect
+
+        data={
+            'success':True,
+            'message':'Ok login est bon ...'
+        }
+        # page si connect
     else:
-        return render(request, 'pages/login.html')
+        data={
+            'success':False,
+            'message':'Erro Login...'
+        }
+    return JsonResponse(data, safe=False)
 
 
 def registerUser(request):
