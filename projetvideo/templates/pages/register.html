@@ -15,32 +15,30 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col mt-4">
-                        <input type="text" name= "name" class="form-control" placeholder="Full name...">
+                        <input type="text" v-model="form.name" name= "name" class="form-control" placeholder="Full name...">
                         </div>
                     </div>
                     <div class="row align-items-center mt-4">
                         <div class="col">
-                        <input type="email" name= "email" class="form-control" placeholder="Email">
+                        <input type="email" v-model="form.email" name= "email" class="form-control" placeholder="Email">
                         </div>
                     </div>
 
                     <div class="row align-items-center mt-4">
                             <div class="col">
                                 <label for="pour">Modules</label>
-                            <select name="module" id="pour" class="form-control">
-                                <option value=""></option>
-                                <option value="">Python</option>
-                                <option value="">Flutter</option>
-                                <option value="">Font-end</option>
+                            <select name="module" v-model="form.module" class="form-control">
+                                <option v-if='!content'>valeur d'attente</option>
+                                <option v-if='content' v-for="mod in modules" v-bind:value="mod.id">${ mod.titre }</option>
                             </select>
                             </div>
                     </div>
                     <div class="row align-items-center mt-4">
                         <div class="col">
-                        <input type="password" name="pass" class="form-control" placeholder="Password">
+                        <input type="password" v-model="form.pass" name="pass" class="form-control" placeholder="Password">
                         </div>
                         <div class="col">
-                        <input type="password" name="re_pass" class="form-control" placeholder="Confirm Password">
+                        <input type="password" v-model="form.re_pass" name="re_pass" class="form-control" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="row justify-content-start mt-4">
@@ -52,7 +50,7 @@
                             </label>
                         </div>
             
-                        <button class="btn btn-primary mt-4">Submit</button>
+                        <button v-on:click='onSubmit' class="btn btn-primary mt-4" type="submit">Submit</button>
                         </div>
                     </div>
                     </div>
@@ -60,6 +58,56 @@
             </div>
         </div>
     </section>
-    
-    
     {% endblock %}
+
+    {% block vue %}
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            loader: true,
+            content:false,
+            modules : [],
+            form : {
+                email : "",
+                name : "",
+                pass : "",
+                re_pass : "",
+                module : 0
+            }
+        },
+        delimiters: ["${","}"],
+        mounted(){
+            this.get_modules()
+        },
+        methods: {
+                get_modules: function(){
+                    axios.get('http://127.0.0.1:8000/Module/')
+                        .then(response => {
+                            console.log(response.data)
+                            this.modules = response.data
+                            this.loader=false
+                            this.content= true
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                },
+                onSubmit: function(){
+
+                    axios.defaults.xsrfCookieName = 'csrftoken'
+                    axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+                    const path = `http://127.0.0.1:8000/connexionUser`
+                    console.log(this.form)
+                    axios.post(path, this.form)
+                    .then(response => {
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+                        console.log(error.response)
+                    });
+                },
+        }
+    })
+    </script>
+    {% endblock vue %}

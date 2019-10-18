@@ -28,24 +28,33 @@ def deconnexion(request):
 
 def acc(request):
     return render(request, 'pages/acc.html')
-def login(request):
+
+def loginRoot(request):
     return render(request, 'pages/login.html')
+
 def register(request):
     return render(request, 'pages/register.html')
+
 def loginUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
     username=postdata['username']
     password=postdata['pass']
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
-        print("user is login")
+        print("###################user is login")   
         login(request, user)
-        if next: 
-            return redirect(next)
-        else:
-            return redirect('acc') # page si connect
+
+        data={
+            'success':True,
+            'message':'Ok login est bon ...'
+        }
+        # page si connect
     else:
-        return render(request, 'pages/login.html')
+        data={
+            'success':False,
+            'message':'Erro Login...'
+        }
+    return JsonResponse(data, safe=False)
 
 
 def registerUser(request):
@@ -81,15 +90,17 @@ def registerUser(request):
             if isemail:
                 try:
                     # User
-                    user = User(first_name=name , email = email )
+                    user = User(username=name , email = email )
                     user.save()
                     user.password = password
                     user.set_password(user.password)
                     user.save()
-                    myModule=Module.objects.filter(pk=module)
-                    myJeton=myModule.jeton
-                    myApiKay=myTex=''.join(random.choice(string.ascii_uppercase+string.digits) for i in range(20))
-                    newUser=User_module(user=user,module=myModule,jeton=myJeton,jeton_restant=myJeton,apiKay=myApiKay,status=True)
+                    myModule=Module.objects.filter(pk=module).get()
+                    
+                    print(myModule)
+                    myJeton=10
+                    myApiKay=''.join(random.choice(string.ascii_uppercase+string.digits) for i in range(20))
+                    newUser=User_module(user=user,module=myModule,jeton=myJeton,jeton_restant=myJeton,apikey=myApiKay,status=True)
                     newUser.save()
                 
                     data={
@@ -114,9 +125,7 @@ def registerUser(request):
         'success':False,
         'message':'Tous Les champs sont requis *',
     }
-    # return JsonResponse(data, safe=False)
-
-    return render(request, 'pages/register.html',data)
+    return JsonResponse(data, safe=False)
 
 
 def cat(request, id_cat):

@@ -48,8 +48,9 @@ class VideoAdmin(admin.ModelAdmin):
         'categorie',
         'titre',
         'description',
+        'image_view',
         'video_view',
-        'image',
+        # 'image',
         'status',
         'date_add',
         'date_update',
@@ -57,10 +58,11 @@ class VideoAdmin(admin.ModelAdmin):
     list_filter = ('status', 'date_add', 'date_update')
     raw_id_fields = ('categorie',)
     
-    
+    def image_view(self, obj):
+        return mark_safe('<img src="{url}"  width="150" heigth="150px" /> '.format(url=obj.image.url))
 
     def video_view(self, obj):
-        return mark_safe('<video controls width="250"> <source src="{url}" type="video/mp4"> lecteur </video>'.format(url=obj.video.url))
+        return mark_safe('<iframe width="250" height="150" src="{url}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'.format(url=obj.video))
 
 class User_moduleAdmin(admin.ModelAdmin):
 
