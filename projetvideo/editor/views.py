@@ -31,8 +31,9 @@ def postCode(request):
     }
     req = requests.post(url, data = data)
     resultat = req.text
-    print(req.status_code)
-    print(req.text)
+    print(resultat)
+    # print(req.status_code)
+    # print(req.text)
     datas = {
         'succes':True,
         'resultat': resultat
