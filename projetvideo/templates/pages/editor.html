@@ -52,7 +52,8 @@ background-color: #fff;
 <br><br>
 
 <section>
-    <div class="container-fluid">
+    
+    <div class="container-fluid" id="app">
         <table id="tab" class="table table-bordered" style="width: 100%;">
             <thead>
             <tr>
@@ -75,7 +76,7 @@ background-color: #fff;
                 </td>
                 <td width='70%'>
                     <div style="width: 100%;" role="alert">
-                    <div class="alert alert-dark" id="app">
+                    <div class="alert alert-dark" >
                         <div style="width: 100%; height: 300px">
                         <editor style="width: 100%; height: 300px" editor-id="editorA" :content="contentA" v-on:change-content="changeContentA" ></editor>
                         </div>
@@ -96,7 +97,8 @@ background-color: #fff;
                           
                         <div class="card" style="width: 100%; overflow: scroll;">
                             <div class="card-body">
-                                <h3>Coucou</h3>
+                              
+                                <p> <span v-html="resultat"></span></p>
                             </div>
                         </div>
                     </div>
@@ -154,9 +156,11 @@ props: ['editorId', 'content', 'lang', 'theme'],
 data () {
     return {
     editor: Object,
-    beforeContent: ''
+    beforeContent: '',
+   
     }
 },
+
 watch: {
     'content' (value) {
         if (this.beforeContent !== value) {
@@ -185,9 +189,11 @@ const app = new Vue({
 data () {
     return {
     contentA: 'default content for Editor A',
+    resultat:'',
     //   contentB: 'default content for Editor B'
     }
 },
+delimiters:["${", "}"],
 methods: {
     reset () {
         this.contentA = 'reset content for Editor A'
@@ -204,23 +210,27 @@ methods: {
     getcontentA(){
         console.log(this.contentA)
     },
-    runnig: function(){
+    runnig: function() {
+        this.loader=true
+        let formData = new FormData();
+        formData.append('contentA', this.contentA);
         
+                      
         axios.defaults.xsrfCookieName = 'csrftoken'
         axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-        axios.post('http://127.0.0.1:8000/code', {
-            contentA: '' + this.contentA,
+        axios.post('http://127.0.0.1:8000/code', formData,  {headers: {'Content-Type': 'multipart/form-data',}})
+        .then((response) => {
+            console.log(response.data);
+            this.resultat = response.data.resultat;
+            console.log(this.resultat);
             
-            }).then(response => {
-                                
-                console.log(response)
-                
-              
-            })
-            .catch((err) => {
-                console.log(err);
-               
-            })
+            console.log(this.contentA);
+                          
+        })
+        .catch((err) => {
+            console.log(err);
+           
+        })
     },
     // changeContentB (val) {
     // 	if (this.contentB !== val) {
