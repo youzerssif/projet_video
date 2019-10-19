@@ -35,6 +35,22 @@ def loginRoot(request):
 def register(request):
     return render(request, 'pages/register.html')
 
+def get_module(request):
+    user = request.user
+    try:
+        module = user.modules.filter(jeton_restant__gte=1)[:1]
+        module = module.get()
+        data={
+            'success':True,
+            'module': module.id
+        }
+    except:
+        data={
+            'success':False,
+            'message':'no available module'
+        }
+    return JsonResponse(data, safe=False)
+
 def loginUser(request):
     postdata = json.loads(request.body.decode('utf-8'))
     username=postdata['username']
@@ -132,4 +148,4 @@ def cat(request, id_cat):
     return render(request, 'pages/videos.html')
 
 def video(request, id_video):
-    return render(request, 'vpages/video_lecteur.html')
+    return render(request, 'pages/video_lecteur.html')

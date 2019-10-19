@@ -3,7 +3,7 @@
 {% block main %}
 
         <section class="fdb-block">
-                <div class="container">
+                <div v-if='video' class="container">
                     <div class="row align-items-center">
                         <div class="col-12 col-md-8 m-auto ml-lg-auto mr-lg-0 col-lg-6 pt-5 pt-lg-0">
                                 <video  id="example_video_youtube"
@@ -12,14 +12,14 @@
                                 preload="auto" 
                                 width="500" 
                                 height="400" 
-                                data-setup='{
+                                :data-setup='{
                                     "techOrder": ["youtube"],
-                                    "src": "https://www.youtube.com/watch?v=Bb5VfiFy0kY" 
+                                    "src": "https://www.youtube.com/watch?v=Bb5VfiFy0kY"
                                 }'>
                             </video>
                         </div>
                         <div class="col-12 col-md-12 col-lg-6 col-xl-5">
-                                <h1>Titre de la vidéo</h1>
+                                <h1>${ video.titre }</h1>
                                 <p class="lead">Duration: 19 minutes</p>
                                 <p>Taille: 50Mo </p>
                                 <div class="btn btn-secondary"><i class="fa fa-download" aria-hidden="true"></i>Download</div>
@@ -29,3 +29,68 @@
             </section>
 
 {% endblock %}
+
+{% block vue %}
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        loader: true,
+        content:false,
+        active_module:false,
+        video:false,
+        user:null,
+    },
+    delimiters: ["${","}"],
+    mounted(){
+        this.get_cat()
+    },
+    methods: {
+        lancevideo: function(v_id){
+            if(this.active_module){
+              window.location.href = "http://127.0.0.1:8000/video/"+v_id
+            } else{
+              window.location.href = "http://127.0.0.1:8000/"
+            }
+        },
+        get_cat: function(){
+            var currentUrl = window.location.pathname;
+            this.video= currentUrl.split('/')[2]
+            this.get_module()
+        },
+        get_video: function(){
+            axios.get('http://127.0.0.1:8000/Videos/'+this.video+'/?key='+this.active_module.apikey)
+                .then(response => {
+                    this.video = response.data
+                    console.log(this.video)
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        get_module: function(){
+            axios.get('http://127.0.0.1:8000/get_module/')
+                .then(response => {
+                    if(response.data.success==true){
+                      this.active_module= response.data.module
+                      this.get_module_full()
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        get_module_full: function(){
+            axios.get('http://127.0.0.1:8000/User_module/'+this.active_module)
+                .then(response => {
+                    this.active_module=response.data
+                    this.get_video()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+    }
+})
+</script>
+{% endblock vue %}
