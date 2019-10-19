@@ -24,7 +24,8 @@ urlpatterns = [
     path("connexion/", loginRoot, name="login"),
     path("inscription", register, name="register"),
     path("category/<int:id_cat>/", cat, name="cat"),
-    path("video/<int:id_video>/", acc, name="acc"),
+    path("video/<int:id_video>/", video, name="video"),
+    path("get_module/", get_module, name="get_module"),
 ]
 
 urlpatterns += router.urls
