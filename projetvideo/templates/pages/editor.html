@@ -128,7 +128,7 @@ background-color: #fff;
                         <div style="width: 100%; height: 300px">
                         <editor style="width: 100%; height: 300px" editor-id="editorA" :content="contentA" v-on:change-content="changeContentA" ></editor>
                         </div>
-                        <button class="btn btn-secondary"  @click="runnig">Run</button> 
+                        <button class="btn btn-secondary"  @submit.prevent="runnig">Run</button> 
                     </div>
                     </div>
                     
