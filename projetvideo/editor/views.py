@@ -44,7 +44,7 @@ def postCode(request):
 
 def niveau(request):
     
-    # niveau = Test.objects.filter(exercice__id = id )
+
     exercice = Exercice.objects.all()
     data={
         # 'niveau':niveau,
