@@ -1,12 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render , Http404
 import requests
 import json
 from django.http import JsonResponse
 from .models import *
 
 # Create your views here.
-def editor(request):
-    data={}
+def editor(request,exo):
+    try :
+        exercice = Exercice.objects.filter(id=exo)[:1].get
+    except:
+        raise Http404('erreur 404')
+    data={
+        'exos':exercice
+    }
 
     return render(request, 'pages/editor.html',data)
 
