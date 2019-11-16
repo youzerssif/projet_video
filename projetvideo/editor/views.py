@@ -40,3 +40,14 @@ def postCode(request):
     }
     return JsonResponse(datas, safe=False)
 #django-admin-interface
+
+def niveau(request,id):
+    
+    # niveau = Test.objects.filter(exercice__id = id )
+    exercice = Exercice.ojects.all()
+    data={
+        # 'niveau':niveau,
+        'exercice':exercice,
+    }
+
+    return render(request, 'pages/niveau.html',data)

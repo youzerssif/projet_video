@@ -19,5 +19,6 @@ from . import views
 
 urlpatterns = [
     path('editor', views.editor, name='editor'),
-    path('code', views.postCode, name='code')
+    path('code', views.postCode, name='code'),
+    path('niveau/<int:int>', views.niveau, name='niveau'),
 ]
