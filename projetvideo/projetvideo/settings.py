@@ -152,7 +152,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 FILEBROWSER_MAX_UPLOAD_SIZE = 10485760*100
-FILEBROWSER_DIRECTORY=os.path.join(BASE_DIR, '../media_cdn/uploads/')
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
