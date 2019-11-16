@@ -57,7 +57,7 @@ background-color: #fff;
         <table id="tab" class="table table-bordered" style="width: 100%;">
             <thead>
             <tr>
-                <th class='text-center'>Enoncer</th>
+                <th class='text-center'>{{ exos.titre }}</th>
                 <th class='text-center'>Editeur</th>
             </tr>
               
@@ -69,7 +69,7 @@ background-color: #fff;
                     <div class="alert alert-primary" style="width: 100%;" role="alert">
                         <div class="card" style="width: 100%; height: 300px">
                         <div class="card-body"  style="width: 100%; overflow: scroll;">
-                            <h3>Ok</h3>
+                            <h3>{{ exos.description|safe }}</h3>
                         </div>
                     </div>
                     

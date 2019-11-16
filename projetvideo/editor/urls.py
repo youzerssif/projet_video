@@ -18,7 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('editor', views.editor, name='editor'),
+    path('editor/<int:exo>', views.editor, name='editor'),
     path('code', views.postCode, name='code'),
     path('niveau', views.niveau, name='niveau'),
 ]

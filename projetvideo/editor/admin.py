@@ -21,18 +21,9 @@ class SpecialiteAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'status',
-        'date_add',
-        'date_upd',
-        'id',
-        'nom',
-        'image',
-        'description',
         'id_specialite',
-        'status',
-        'date_add',
-        'date_upd',
     )
-
+    
 
 class UserSpecialiteAdmin(admin.ModelAdmin):
 
