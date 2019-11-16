@@ -14,6 +14,6 @@ six==1.12.0
 sqlparse==0.3.0
 text-unidecode==1.3
 simplejson
-django-tinymce
+django-tinymce4-lite
 requests
 django-filebrowser

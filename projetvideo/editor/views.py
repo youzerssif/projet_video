@@ -2,6 +2,7 @@ from django.shortcuts import render
 import requests
 import json
 from django.http import JsonResponse
+from .models import *
 
 # Create your views here.
 def editor(request):
@@ -41,10 +42,10 @@ def postCode(request):
     return JsonResponse(datas, safe=False)
 #django-admin-interface
 
-def niveau(request,id):
+def niveau(request):
     
     # niveau = Test.objects.filter(exercice__id = id )
-    exercice = Exercice.ojects.all()
+    exercice = Exercice.objects.all()
     data={
         # 'niveau':niveau,
         'exercice':exercice,
